@@ -1,323 +1,330 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f6f8;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+    }
 
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#f5f6f8;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-}
+    /* container */
+    .form-container {
+      width: 240px;
+      background: white;
+      padding: 10px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
 
-/* container */
-.form-container{
-  width:240px;
-  background:white;
-  padding:10px;
-  border-radius:18px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.08);
-}
+    /* name row */
+    .row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 0px;
+      justify-content: flex-start;
+    }
 
-/* name row */
-.row{
-  display:flex;
-  gap:4px;
-  margin-bottom:0px;
-  justify-content:flex-start;
-}
+    .row .field {
+      flex: 0;
+    }
 
-.row .field{
-  flex:0;
-}
+    .row input {
+      width: 97px;
+    }
 
-.row input{
-  width:97px;
-}
+    /* generic field */
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
 
-/* generic field */
-.field{
-  display:flex;
-  flex-direction:column;
-}
+    label {
+      font-size: 12px;
+      color: #374151;
+      margin-bottom: 3px;
+    }
 
-label{
-  font-size:12px;
-  color:#374151;
-  margin-bottom:3px;
-}
+    input {
+      height: 36px;
+      border: 2px solid #d1d5db;
+      border-radius: 10px;
+      padding: 0 8px;
+      font-size: 13px;
+      outline: none;
+      transition: 0.15s ease;
+    }
 
-input{
-  height:36px;
-  border:2px solid #d1d5db;
-  border-radius:10px;
-  padding:0 8px;
-  font-size:13px;
-  outline:none;
-  transition:0.15s ease;
-}
+    input:focus {
+      border-color: #4a67a1;
+    }
 
-input:focus{
-  border-color:#4a67a1;
-}
+    input.error {
+      border-color: #dc2626;
+    }
 
-input.error{
-  border-color:#dc2626;
-}
+    .error-text {
+      font-size: 12px;
+      color: #dc2626;
+      min-height: 14px;
+      margin-top: 4px;
+    }
 
-.error-text{
-  font-size:12px;
-  color:#dc2626;
-  min-height:14px;
-  margin-top:4px;
-}
+    /* DOB */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0px 0 2px;
+      color: #6b7280;
+    }
 
-/* DOB */
-.section-title{
-  font-size:13px;
-  font-weight:600;
-  margin:0px 0 2px;
-  color:#6b7280;
-}
+    .dob-row {
+      display: flex;
+      gap: 6px;
+    }
 
-.dob-row{
-  display:flex;
-  gap:6px;
-}
+    .dob-row .field {
+      flex: 0;
+    }
 
-.dob-row .field{
-  flex:0;
-}
+    .dob-row input {
+      width: 55px;
+      text-align: center;
+    }
 
-.dob-row input{
-  width:55px;
-  text-align:center;
-}
+    .required-note {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
 
-.required-note{
-  font-size:13px;
-  color:#6b7280;
-  margin-bottom:8px;
-}
+    /* button */
+    button {
+      margin-top: 0px;
+      width: 160px;
+      height: 38px;
+      border: none;
+      border-radius: 10px;
+      background: #4a67a1;
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
 
-/* button */
-button{
-  margin-top:0px;
-  width:160px;
-  height:38px;
-  border:none;
-  border-radius:10px;
-  background:#4a67a1;
-  color:white;
-  font-size:13px;
-  cursor:pointer;
-}
-
-button:hover{
-  opacity:0.95;
-}
-
-</style>
+    button:hover {
+      opacity: 0.95;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="form-container">
+  <div class="form-container">
 
-  <div class="required-note">
-  * indicates required field
-</div>
-  <!-- NAME -->
-  <div class="row">
+    <div class="required-note">
+      * indicates required field
+    </div>
+    <!-- NAME -->
+    <div class="row">
 
-    <div class="field">
-      <label>First Name *</label>
-      <input id="firstName" type="text">
-      <div class="error-text" id="firstNameError"></div>
+      <div class="field">
+        <label>First Name *</label>
+        <input id="firstName" type="text">
+        <div class="error-text" id="firstNameError"></div>
+      </div>
+
+      <div class="field">
+        <label>Last Name *</label>
+        <input id="lastName" type="text">
+        <div class="error-text" id="lastNameError"></div>
+      </div>
+
     </div>
 
-    <div class="field">
-      <label>Last Name *</label>
-      <input id="lastName" type="text">
-      <div class="error-text" id="lastNameError"></div>
+    <!-- DOB -->
+    <div class="section-title">Date of Birth</div>
+
+    <div class="dob-row">
+
+      <div class="field">
+        <label>MM *</label>
+        <input id="month" maxlength="2">
+        <div class="error-text" id="monthError"></div>
+      </div>
+
+      <div class="field">
+        <label>DD *</label>
+        <input id="day" maxlength="2">
+        <div class="error-text" id="dayError"></div>
+      </div>
+
+      <div class="field">
+        <label>YYYY *</label>
+        <input id="year" maxlength="4">
+        <div class="error-text" id="yearError"></div>
+      </div>
+
     </div>
+
+    <button onclick="submitForm()">Continue</button>
+
+    <div id="successMessage" style="
+  margin-top:10px;
+  font-size:13px;
+  color:#16a34a;
+  text-align:center;
+"></div>
 
   </div>
 
-  <!-- DOB -->
-  <div class="section-title">Date of Birth</div>
+  <script>
 
-  <div class="dob-row">
+    /* elements */
+    const month = document.getElementById("month")
+    const day = document.getElementById("day")
+    const year = document.getElementById("year")
 
-    <div class="field">
-      <label>MM *</label>
-      <input id="month" maxlength="2">
-      <div class="error-text" id="monthError"></div>
-    </div>
+    const firstName = document.getElementById("firstName")
+    const lastName = document.getElementById("lastName")
 
-    <div class="field">
-      <label>DD *</label>
-      <input id="day" maxlength="2">
-      <div class="error-text" id="dayError"></div>
-    </div>
-
-    <div class="field">
-      <label>YYYY *</label>
-      <input id="year" maxlength="4">
-      <div class="error-text" id="yearError"></div>
-    </div>
-
-  </div>
-
-  <button onclick="submitForm()">Continue</button>
-
-</div>
-
-<script>
-
-/* elements */
-const month=document.getElementById("month")
-const day=document.getElementById("day")
-const year=document.getElementById("year")
-
-const firstName=document.getElementById("firstName")
-const lastName=document.getElementById("lastName")
-
-/* numeric only */
-function numeric(input){
-  input.addEventListener("input",()=>{
-    input.value=input.value.replace(/\D/g,"")
-  })
-}
-
-numeric(month)
-numeric(day)
-numeric(year)
-
-/* auto jump */
-month.addEventListener("input",()=>{
-  if(month.value.length===2) day.focus()
-})
-
-day.addEventListener("input",()=>{
-  if(day.value.length===2) year.focus()
-})
-
-/* error helpers */
-function setError(id,msg){
-  document.getElementById(id).classList.add("error")
-  document.getElementById(id+"Error").innerText=msg
-}
-
-function clearError(id){
-  document.getElementById(id).classList.remove("error")
-  document.getElementById(id+"Error").innerText=""
-}
-
-/* validate DOB */
-function validateDOB(){
-
-  let ok=true
-
-  clearError("month")
-  clearError("day")
-  clearError("year")
-
-  const m=parseInt(month.value)
-  const d=parseInt(day.value)
-  const y=parseInt(year.value)
-
-  const currentYear=new Date().getFullYear()
-
-  if(!month.value || m<1 || m>12){
-    setError("month","Invalid month")
-    ok=false
-  }
-
-  if(!day.value || d<1 || d>31){
-    setError("day","Invalid day")
-    ok=false
-  }
-
-  if(!year.value || y<1900 || y>currentYear){
-    setError("year","Invalid year")
-    ok=false
-  }
-
-  if(ok){
-    const date=new Date(y,m-1,d)
-
-    if(
-      date.getFullYear()!==y ||
-      date.getMonth()!==m-1 ||
-      date.getDate()!==d
-    ){
-      setError("day","Invalid date")
-      ok=false
+    /* numeric only */
+    function numeric(input) {
+      input.addEventListener("input", () => {
+        input.value = input.value.replace(/\D/g, "")
+      })
     }
-  }
 
-  return ok
-}
+    numeric(month)
+    numeric(day)
+    numeric(year)
 
-/* validate names */
-function validateNames(){
+    /* auto jump */
+    month.addEventListener("input", () => {
+      if (month.value.length === 2) day.focus()
+    })
 
-  let ok=true
+    day.addEventListener("input", () => {
+      if (day.value.length === 2) year.focus()
+    })
 
-  clearError("firstName")
-  clearError("lastName")
+    /* error helpers */
+    function setError(id, msg) {
+      document.getElementById(id).classList.add("error")
+      document.getElementById(id + "Error").innerText = msg
+    }
 
-  if(!firstName.value.trim()){
-    setError("firstName","Required")
-    ok=false
-  }
+    function clearError(id) {
+      document.getElementById(id).classList.remove("error")
+      document.getElementById(id + "Error").innerText = ""
+    }
 
-  if(!lastName.value.trim()){
-    setError("lastName","Required")
-    ok=false
-  }
+    /* validate DOB */
+    function validateDOB() {
 
-  return ok
-}
+      let ok = true
 
-/* submit */
-function submitForm(){
+      clearError("month")
+      clearError("day")
+      clearError("year")
 
-  if(!validateNames() || !validateDOB()) return
+      const m = parseInt(month.value)
+      const d = parseInt(day.value)
+      const y = parseInt(year.value)
 
-  window.parent.postMessage(
-    JSON.stringify({
-      event_code: "ym-client-event",
-      data: {
-        event: {
-          code: "userdetails",
-          data: {
-            firstname: firstName.value.trim(),
-            lastname: lastName.value.trim(),
-            dob: {
-              month: month.value,
-              day: day.value,
-              year: year.value
-            }
-          }
+      const currentYear = new Date().getFullYear()
+
+      if (!month.value || m < 1 || m > 12) {
+        setError("month", "Invalid month")
+        ok = false
+      }
+
+      if (!day.value || d < 1 || d > 31) {
+        setError("day", "Invalid day")
+        ok = false
+      }
+
+      if (!year.value || y < 1900 || y > currentYear) {
+        setError("year", "Invalid year")
+        ok = false
+      }
+
+      if (ok) {
+        const date = new Date(y, m - 1, d)
+
+        if (
+          date.getFullYear() !== y ||
+          date.getMonth() !== m - 1 ||
+          date.getDate() !== d
+        ) {
+          setError("day", "Invalid date")
+          ok = false
         }
       }
-    }),
-    "*"
-  )
 
-  document.getElementById("successMessage").innerText =
-    "Form submitted successfully!"
-}
+      return ok
+    }
 
-</script>
+    /* validate names */
+    function validateNames() {
+
+      let ok = true
+
+      clearError("firstName")
+      clearError("lastName")
+
+      if (!firstName.value.trim()) {
+        setError("firstName", "Required")
+        ok = false
+      }
+
+      if (!lastName.value.trim()) {
+        setError("lastName", "Required")
+        ok = false
+      }
+
+      return ok
+    }
+
+    /* submit */
+    function submitForm() {
+
+      if (!validateNames() || !validateDOB()) return
+
+      window.parent.postMessage(
+        JSON.stringify({
+          event_code: "ym-client-event",
+          data: {
+            event: {
+              code: "userdetails",
+              data: {
+                firstname: firstName.value.trim(),
+                lastname: lastName.value.trim(),
+                dob: {
+                  month: month.value,
+                  day: day.value,
+                  year: year.value
+                }
+              }
+            }
+          }
+        }),
+        "*"
+      )
+
+      document.getElementById("successMessage").innerText =
+        "Form submitted successfully!";
+    }
+
+  </script>
 
 </body>
+
 </html>
