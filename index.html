@@ -310,10 +310,11 @@ function submitForm(){
         }
       }
     }),
-    "https://www.user_data.com"
+    "*"
   )
 
-  console.log("Message sent")
+  document.getElementById("successMessage").innerText =
+    "Form submitted successfully!"
 }
 
 </script>
