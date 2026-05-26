@@ -302,9 +302,6 @@
         JSON.stringify({
           event_code: "ym-client-event",
           data: {
-            event: {
-              code: "userdetails",
-              data: {
                 firstname: firstName.value.trim(),
                 lastname: lastName.value.trim(),
                 dob: {
@@ -312,11 +309,9 @@
                   day: day.value,
                   year: year.value
                 }
-              }
-            }
-          }
-        }),
-        "*"
+             },
+          origin: "agentAI",
+        })
       )
 
       document.getElementById("successMessage").innerText =
