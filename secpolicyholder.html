@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f6f8;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+    }
+
+    .form-container {
+      width: 236px;
+      background: white;
+      padding: 12px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .required-note {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field.small input {
+      width: 60px;
+      text-align: center;
+    }
+
+    .field.medium input,
+    .field.medium select {
+      width: 110px;
+    }
+
+    .field.large input {
+      width: 230px;
+    }
+
+    label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 3px;
+    }
+
+    input,
+    select {
+      height: 36px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      padding: 0 8px;
+      font-size: 13px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #4a67a1;
+    }
+
+    input.error,
+    select.error {
+      border-color: #dc2626;
+    }
+
+    .error-text {
+      font-size: 10px;
+      color: #dc2626;
+      min-height: 10px;
+      margin-top: 2px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .insurance-wrapper {
+      position: relative;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 62px;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      max-height: 180px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+    }
+
+    .suggestion-item {
+      padding: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .suggestion-item:hover {
+      background: #f3f4f6;
+    }
+
+    button {
+      width: 100%;
+      height: 38px;
+      border: none;
+      border-radius: 10px;
+      background: #4a67a1;
+      color: white;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="form-container">
+
+    <div class="required-note">* required field</div>
+
+    <!-- INSURANCE -->
+    <div class="row">
+      <div class="field large insurance-wrapper">
+        <label>Insurance *</label>
+        <input id="insurance" autocomplete="off" placeholder="Start typing...">
+        <div class="error-text" id="insuranceError"></div>
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+    </div>
+
+    
+    <!-- RELATION -->
+    <div class="row">
+      <div class="field medium">
+        <label>Relation *</label>
+        <select id="relation">
+          <option value="">Select</option>
+          <option value="Self">Self</option>
+          <option value="Child">Child</option>
+          <option value="Spouse">Spouse</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="error-text" id="relationError"></div>
+      </div>
+    </div>
+
+    <!-- POLICY HOLDER -->
+    <div id="policyHolderSection" style="display:none;">
+
+      <div class="section-title">Policy Holder Information</div>
+
+      <div class="row">
+        <div class="field medium">
+          <label>First Name *</label>
+          <input id="phFirstName">
+          <div class="error-text" id="phFirstNameError"></div>
+        </div>
+
+        <div class="field medium">
+          <label>Last Name *</label>
+          <input id="phLastName">
+          <div class="error-text" id="phLastNameError"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field small">
+          <label>MM *</label>
+          <input id="phMonth" maxlength="2">
+          <div class="error-text" id="phMonthError"></div>
+        </div>
+
+        <div class="field small">
+          <label>DD *</label>
+          <input id="phDay" maxlength="2">
+          <div class="error-text" id="phDayError"></div>
+        </div>
+
+        <div class="field small">
+          <label>YYYY *</label>
+          <input id="phYear" maxlength="4">
+          <div class="error-text" id="phYearError"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field medium">
+          <label>Gender *</label>
+          <select id="phGender">
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          <div class="error-text" id="phGenderError"></div>
+        </div>
+        
+        <div class="field medium">
+          <label>Phone *</label>
+          <input id="phPhone" maxlength="10">
+          <div class="error-text" id="phPhoneError"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field large">
+          <label>Street *</label>
+          <input id="phStreet">
+          <div class="error-text" id="phStreetError"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field medium">
+          <label>City *</label>
+          <input id="phCity">
+          <div class="error-text" id="phCityError"></div>
+        </div>
+
+        <div class="field medium">
+          <label>State *</label>
+          <select id="phState">
+            <option value="">Select</option>
+            <option>TX</option>
+            <option>CA</option>
+            <option>NY</option>
+            <option>FL</option>
+            <option>CO</option>
+          </select>
+          <div class="error-text" id="phStateError"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field medium">
+          <label>Zip *</label>
+          <input id="phZipcode" maxlength="5">
+          <div class="error-text" id="phZipcodeError"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <button onclick="submitForm()">Continue</button>
+
+  </div>
+
+<script>
+  const submitBtn = document.querySelector("button");
+let submitted = false;
+const relation = document.getElementById("relation");
+const policySection = document.getElementById("policyHolderSection");
+
+const insurance = document.getElementById("insurance");
+const suggestions = document.getElementById("suggestions");
+
+const insuranceList = [
+  "Aetna",
+  "Anthem Blue Cross",
+  "Blue Cross Blue Shield",
+  "Cigna",
+  "Humana",
+  "UnitedHealthcare",
+  "Kaiser Permanente",
+  "Molina Healthcare",
+  "Centene",
+  "WellCare",
+  "Fidelis Care",
+  "Oscar Health",
+  "Ambetter",
+  "Highmark",
+  "Independence Blue Cross",
+  "CareSource",
+  "Health Net",
+  "Tricare",
+  "Medicare",
+  "Medicaid",
+  "GEHA",
+  "UMR",
+  "Meritain Health",
+  "Coventry Health Care",
+  "Excellus BCBS",
+  "Empire Blue Cross Blue Shield",
+  "Horizon Blue Cross Blue Shield",
+  "Premera Blue Cross",
+  "Regence BlueShield",
+  "Blue Shield of California",
+  "Florida Blue",
+  "BCBS Texas",
+  "BCBS Illinois",
+  "BCBS Arizona",
+  "BCBS Michigan",
+  "BCBS Georgia"
+];
+
+// numeric restriction helper
+function numeric(id) {
+  const el = document.getElementById(id);
+  el.addEventListener("input", () => {
+    el.value = el.value.replace(/\D/g, "");
+  });
+}
+
+["phMonth","phDay","phYear","phPhone","phZipcode"].forEach(numeric);
+
+// relation toggle
+relation.addEventListener("change", () => {
+  if (relation.value === "Self") {
+    policySection.style.display = "none";
+  } else {
+    policySection.style.display = "block";
+  }
+});
+
+// insurance autocomplete
+insurance.addEventListener("input", () => {
+  const val = insurance.value.toLowerCase();
+  suggestions.innerHTML = "";
+
+  if (!val) {
+    suggestions.style.display = "none";
+    return;
+  }
+
+  const filtered = insuranceList.filter(i => i.toLowerCase().includes(val));
+
+  if (!filtered.length) {
+    suggestions.style.display = "none";
+    return;
+  }
+
+  filtered.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "suggestion-item";
+    div.textContent = item;
+    div.onclick = () => {
+      insurance.value = item;
+      suggestions.style.display = "none";
+    };
+    suggestions.appendChild(div);
+  });
+
+  suggestions.style.display = "block";
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".insurance-wrapper")) {
+    suggestions.style.display = "none";
+  }
+});
+
+// validation helper
+function setError(id, msg) {
+  document.getElementById(id).classList.add("error");
+  document.getElementById(id + "Error").innerText = msg;
+}
+
+function clearError(id) {
+  document.getElementById(id).classList.remove("error");
+  document.getElementById(id + "Error").innerText = "";
+}
+
+// submit
+function submitForm() {
+  if (submitted) return;
+
+  let valid = true;
+
+  // clear errors first
+  clearError("relation");
+  clearError("insurance");
+
+  // REQUIRED: insurance
+  if (!insurance.value.trim()) {
+    setError("insurance", "Required");
+    valid = false;
+  }
+
+  // REQUIRED: relation
+  if (!relation.value) {
+    setError("relation", "Required");
+    valid = false;
+  }
+
+  // ✅ POLICY HOLDER VALIDATION (ONLY for others/child/spouse)
+  if (relation.value !== "Self") {
+
+    const requiredFields = [
+      "phFirstName",
+      "phLastName",
+      "phMonth",
+      "phDay",
+      "phYear",
+      "phGender",
+      "phPhone",
+      "phStreet",
+      "phCity",
+      "phState",
+      "phZipcode"
+    ];
+
+    requiredFields.forEach(id => {
+      const el = document.getElementById(id);
+
+      if (!el.value || !el.value.trim()) {
+        setError(id, "Required");
+        valid = false;
+      } else {
+        clearError(id);
+      }
+    });
+  }
+
+  if (!valid) return;
+
+  submitted = true;
+
+  // disable + hide button immediately
+  submitBtn.disabled = true;
+  submitBtn.innerText = "Submitting...";
+  submitBtn.style.opacity = "0.6";
+  submitBtn.style.pointerEvents = "none";
+  submitBtn.style.display = "none";
+
+  // build payload
+  const payload = {
+    relation: relation.value,
+    insurance: insurance.value.trim()
+  };
+
+  // include policy holder info ONLY if not self
+  if (relation.value !== "Self") {
+    payload.policyHolder = {
+      firstName: document.getElementById("phFirstName").value.trim(),
+      lastName: document.getElementById("phLastName").value.trim(),
+      dob: {
+        month: document.getElementById("phMonth").value,
+        day: document.getElementById("phDay").value,
+        year: document.getElementById("phYear").value
+      },
+      gender: document.getElementById("phGender").value,
+      phone: document.getElementById("phPhone").value,
+      address: {
+        street: document.getElementById("phStreet").value.trim(),
+        city: document.getElementById("phCity").value.trim(),
+        state: document.getElementById("phState").value,
+        zipcode: document.getElementById("phZipcode").value
+      }
+    };
+  }
+
+  window.parent.postMessage(JSON.stringify({
+    event_code: "ym-client-event",
+    data: payload,
+    origin: "agentAI"
+  }));
+}
+</script>
+
+</body>
+</html>
