@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f6f8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 200px; 
+  background: white;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.required-note {
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field.small input {
+  width: 55px;
+  text-align: center;
+}
+
+.field.medium input,
+.field.medium select {
+  width: 96px;
+}
+
+.field.large input,
+.field.large select {
+  width: 200px;
+}
+
+label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 3px;
+}
+
+input,
+select {
+  height: 36px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0 8px;
+  font-size: 13px;
+  outline: none;
+  transition: 0.15s ease;
+  background: white;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+  border-color: #4a67a1;
+}
+
+input.error,
+select.error {
+  border-color: #dc2626;
+}
+
+.error-text {
+  font-size: 10px;
+  color: #dc2626;
+  min-height: 10px;
+  margin-top: 1px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 4px 0;
+  color: #6b7280;
+}
+
+button {
+  margin-top: 6px;
+  width: 160px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #4a67a1;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.95;
+}
+
+#formSection {
+  display: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+<div class="required-note">
+  * indicates required field
+</div>
+
+<!-- RELATION FIRST -->
+<div class="row">
+
+  <div class="field large">
+
+    <label>Relation to Policy Holder *</label>
+
+    <select id="relation">
+      <option value="">Select</option>
+      <option value="Self">Self</option>
+      <option value="Child">Child</option>
+      <option value="Spouse">Spouse</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <div class="error-text" id="relationError"></div>
+
+  </div>
+
+</div>
+
+<!-- FORM -->
+<div id="formSection">
+
+  <div class="row">
+    <div class="field medium">
+      <label>First Name *</label>
+      <input id="firstName" type="text">
+      <div class="error-text" id="firstNameError"></div>
+    </div>
+
+    <div class="field medium">
+      <label>Last Name *</label>
+      <input id="lastName" type="text">
+      <div class="error-text" id="lastNameError"></div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="field small">
+      <label>MM *</label>
+      <input id="month" maxlength="2">
+      <div class="error-text" id="monthError"></div>
+    </div>
+
+    <div class="field small">
+      <label>DD *</label>
+      <input id="day" maxlength="2">
+      <div class="error-text" id="dayError"></div>
+    </div>
+
+    <div class="field small">
+      <label>YYYY *</label>
+      <input id="year" maxlength="4">
+      <div class="error-text" id="yearError"></div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+     <div class="field medium">
+      <label>Gender *</label>
+      <select id="gender">
+        <option value="">Select</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      <div class="error-text" id="genderError"></div>
+    </div>
+
+    <div class="field medium">
+      <label>Phone *</label>
+      <input id="phone" maxlength="10">
+      <div class="error-text" id="phoneError"></div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="field large">
+      <label>Street Address *</label>
+      <input id="street" type="text">
+      <div class="error-text" id="streetError"></div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="field medium">
+      <label>City *</label>
+      <input id="city" type="text">
+      <div class="error-text" id="cityError"></div>
+    </div>
+
+    <div class="field medium">
+      <label>State *</label>
+      <select id="state">
+        <option value="">Select</option>
+        <option>TX</option>
+        <option>CA</option>
+        <option>NY</option>
+        <option>FL</option>
+      </select>
+      <div class="error-text" id="stateError"></div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="field medium">
+      <label>Zip Code *</label>
+      <input id="zipcode" maxlength="5">
+      <div class="error-text" id="zipcodeError"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<button id="submitBtn" onclick="submitForm()">Continue</button>
+
+</div>
+
+<script>
+
+const relation = document.getElementById("relation")
+const formSection = document.getElementById("formSection")
+const submitBtn = document.getElementById("submitBtn")
+
+let submitted = false
+
+/* numeric only */
+function numeric(input){
+  input.addEventListener("input",()=>{
+    input.value = input.value.replace(/\D/g,"")
+  })
+}
+
+numeric(document.getElementById("month"))
+numeric(document.getElementById("day"))
+numeric(document.getElementById("year"))
+numeric(document.getElementById("phone"))
+numeric(document.getElementById("zipcode"))
+
+/* show form only for non-self */
+relation.addEventListener("change", () => {
+
+  if (!relation.value) {
+    formSection.style.display = "none"
+  } else if (relation.value === "Self") {
+    formSection.style.display = "none"
+  } else {
+    formSection.style.display = "block"
+  }
+
+})
+
+/* error helpers */
+function setError(id,msg){
+  document.getElementById(id).classList.add("error")
+  document.getElementById(id+"Error").innerText = msg
+}
+
+function clearError(id){
+  document.getElementById(id).classList.remove("error")
+  document.getElementById(id+"Error").innerText = ""
+}
+
+/* validation */
+function validate(){
+
+  let ok = true
+
+  const fields = [
+    "firstName","lastName","phone",
+    "gender","street","city","state","zipcode"
+  ]
+
+  fields.forEach(clearError)
+
+  if(!firstName.value.trim()){
+    setError("firstName","Required")
+    ok = false
+  }
+
+  if(!lastName.value.trim()){
+    setError("lastName","Required")
+    ok = false
+  }
+
+  if(phone.value.length !== 10){
+    setError("phone","Invalid")
+    ok = false
+  }
+
+  if(!gender.value){
+    setError("gender","Required")
+    ok = false
+  }
+
+  if(!street.value.trim()){
+    setError("street","Required")
+    ok = false
+  }
+
+  if(!city.value.trim()){
+    setError("city","Required")
+    ok = false
+  }
+
+  if(!state.value){
+    setError("state","Required")
+    ok = false
+  }
+
+  if(zipcode.value.length !== 5){
+    setError("zipcode","Invalid")
+    ok = false
+  }
+
+  if(month.value.length !== 2){
+    setError("month","Invalid")
+    ok = false
+  }
+
+  if(day.value.length !== 2){
+    setError("day","Invalid")
+    ok = false
+  }
+
+  if(year.value.length !== 4){
+    setError("year","Invalid")
+    ok = false
+  }
+
+  return ok
+}
+
+/* submit */
+function submitForm(){
+
+  if(submitted) return
+
+  if(!relation.value){
+    setError("relation","Required")
+    return
+  }
+
+  /* SELF → instant submit */
+  if(relation.value === "Self"){
+
+    submitted = true
+    submitBtn.style.display = "none"
+
+    window.parent.postMessage(
+      JSON.stringify({
+        event_code:"ym-client-event",
+        data:{
+          relation:"Self"
+        },
+        origin:"agentAI"
+      })
+    )
+
+    return
+  }
+
+  /* OTHERS → validate form */
+  if(!validate()) return
+
+  submitted = true
+  submitBtn.style.display = "none"
+
+  window.parent.postMessage(
+    JSON.stringify({
+      event_code:"ym-client-event",
+      data:{
+        relation:relation.value,
+        firstname:firstName.value.trim(),
+        lastname:lastName.value.trim(),
+        dob:{
+          month:month.value,
+          day:day.value,
+          year:year.value
+        },
+        phone:phone.value,
+        gender:gender.value,
+        address:{
+          street:street.value.trim(),
+          city:city.value.trim(),
+          state:state.value,
+          zipcode:zipcode.value
+        }
+      },
+      origin:"agentAI"
+    })
+  )
+
+}
+
+</script>
+
+</body>
+</html>
